@@ -145,12 +145,12 @@ properties = {
   secondprobe: {
     title: "Make second proby cycle",
     description: "'Yes' Starts a second slower probing cycle with defined values for better accuracy, and 'No' only one probing cycle.",
-    type: "number",
+    type: "enum",
     values: [
       { title: "Yes", id: "1" },
       { title: "No", id: "0" },
     ],
-    value: 1 // 1 - ON 2 - OFF
+    value: "1" // 1 - ON 2 - OFF
   },
   // End of edit
 
@@ -219,7 +219,7 @@ var GV_PROBE_SPEED_FAST = 100; // Probe Feedrate schnell laut einstellung im PP 
 var GV_PROBE_SPEED_SLOW = 102; // Probe Feedrate langsam laut einstellung im PP in HSM Works
 var GV_PROBE_SLOW_DISTANCE = 103; // Slow Probe Distance einstellung im PP 
 var GV_FEEDRATE = 104; // HSM Works Einfahrvorschub des Probe Werkzeugs
-var GV_Zweiter_Antastvorgang = 105;
+var GV_Zweiter_Antastvorgang = 105; // Auswahl für zweiter Antastvorgang 1 - JA  // 2 - Nein
 
 // normal variables
 var GV_PROBE_TYPE = 4; // Nummer des ausgewÃ¤hlten Probetypen in HSM Works
@@ -355,7 +355,7 @@ function onOpen() {
   writeBlock(formatSetVar(GV_PROBE_SPEED_FAST, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeFastSpeed["value"])));
   writeBlock(formatSetVar(GV_PROBE_SPEED_SLOW, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeSlowSpeed["value"])));
   writeBlock(formatSetVar(GV_PROBE_SLOW_DISTANCE, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeSlowDistance["value"])));
-  writeBlock(formatSetVar(GV_Zweiter_Antastvorgang,  properties.secondprobe["value"]));
+  writeBlock(formatSetVar(GV_Zweiter_Antastvorgang, getProperty("secondprobe") ));
 }
 
 
