@@ -1,11 +1,24 @@
 # Beamicon-2-Posprozessor-with-probing-for-Fusion-360-
 This is a Postprozessor für Fusion 360 and HSM Works, for the Beamicon 2 Control Soft- and hardware. It supports the Probing function of HSM and Fusion 360 Cam.
 
-##Please be carefull! This Postprozessor is still in developement and can cause serious harm to the machine or operator. Use it as a beta, to find issues, so that they can be eliminated.
+## Please be carefull! This Postprozessor is still in developement and can cause serious harm to the machine or operator. Use it as a beta, to find issues, so that they can be eliminated.
 
-#Known Issues
+# Known Issues
 
--not all probing cycles are implemented.
+- not all probing cycles are implemented. See the list of implemented cycles below.
+- Y axis angle rotation doesnt work and needs to be fixed.
+- very slow Feedrate for probe moving distance
+- lot of useless G0 Z0 inside subroutine file
+- <b>Probe crashes into origin at the end of Y axis angle rotation</b>
+
+
+# How to use this Postprozessor
+
+This postprozessor is used as every other Fusion / HSM PP .cps file.
+You can load it inside your software. You need to ad dthe hsm_probe_beamicon2_subroutine.txt file in your beamicon installations Macro folder.
+This file contains the original Beamicon2 Macros, that where edited to fit the Postprozessors output.
+
+Befor starting a created programm on your machine, make shure you set the origin of the touchprobe to roughly the same starting point, rellative to your workpiece like in the cam Simulaion.
 
 
 
