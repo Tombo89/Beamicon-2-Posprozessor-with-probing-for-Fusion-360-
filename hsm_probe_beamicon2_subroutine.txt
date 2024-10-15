@@ -5,6 +5,9 @@ Unterprogramm fÃ¼r die Antastfunktion aus HSM Works / Fusion 360
 #100 (Anfahrgeschwindigkeit)
 #101 (Ausfahrgeschwindigkeit für Messung)
 #103 (Slow probe distance)
+#104 (HSM Works Einfahrvorschub des Probe Werkzeugs)
+#105 (Second Probe cycle? 1 - ON // 0 - OFF)
+
 #4 (Probe cycle Ã¼bermittelt vom PP)
 #6 (Startpunkt Y)
 #10 (Cycle Depth von Rueckzugshoehe)
