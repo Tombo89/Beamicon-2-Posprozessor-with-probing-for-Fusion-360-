@@ -145,14 +145,12 @@ properties = {
   secondprobe: {
     title: "Make second proby cycle",
     description: "'Yes' Starts a second slower probing cycle with defined values for better accuracy, and 'No' only one probing cycle.",
-    group: "formats",
-    type: "enum",
+    type: "number",
     values: [
-      { title: "Yes", id: "true" },
-      { title: "No", id: "false" },
+      { title: "Yes", id: "1" },
+      { title: "No", id: "0" },
     ],
-    value: "true",
-    scope: "post"
+    value: 1 // 1 - ON 2 - OFF
   },
   // End of edit
 
