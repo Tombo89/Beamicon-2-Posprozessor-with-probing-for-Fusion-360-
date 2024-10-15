@@ -11,15 +11,7 @@
 */
 
 /**
-  CHANGE HISTORY by Tombo
-  ==========================================================
-  12.10.2024
-    -changed Postprozessor Description
-    -formatting to support probing
-    -set optional stop to true in user defined properties
-    -add probe speed to user defined properties
-    -add Beamicon2 macro variable addresses
-
+  CHANGED to support WCS Probing
 */
 
 description = "Beamicon2 WCS Probing";
@@ -93,7 +85,7 @@ properties = {
     description: "Outputs optional stop code during when necessary in the code.",
     group: "preferences",
     type: "boolean",
-    value: true, //changed by tombo on 12.10.2024
+    value: true, // EDIT
     scope: "post"
   },
   separateWordsWithSpace: {
@@ -131,7 +123,7 @@ properties = {
 
 
 
-  // added by tombo on 12.10.2024
+  // EDIT
   probeFastSpeed: {
     title: "Fast probing speed (mm/min)",
     description: "Fast probing speed (mm/min)",
@@ -150,7 +142,7 @@ properties = {
     type: "number",
     value: 1.0 // mm
   }
-  // End of change
+  // End of edit
 
 };
 
@@ -177,7 +169,7 @@ var taperFormat = createFormat({ decimals: 1, scale: DEG });
 var pitchFormat = createFormat({ decimals: (unit == MM ? 2 : 3) });
 
 
-// formatting to support probing - added by 12/10/2024
+// EDIT
 var probe100Format = createFormat({ decimals: 3, zeropad: true, width: 3, forceDecimal: true });
 var gvarFormat = createFormat({ decimals: 0 });
 var gvarOutput = createVariable({ prefix: "#", force: true }, gvarFormat);
@@ -207,8 +199,9 @@ var gUnitModal = createOutputVariable({}, gFormat); // modal group 6 // G20-21
 var gCycleModal = createOutputVariable({}, gFormat); // modal group 9 // G81, ...
 var gRetractModal = createOutputVariable({}, gFormat); // modal group 10 // G98-99
 
+// ################################EDIT#################################################
 
-// Beamicon2 macro variable addresses - Added by tombo on 12.10.2024
+// Beamicon2 macro variable addresses 
 // These locations can be changed if there is a clash but must match those used in the macro
 var GV_PROBE_SPEED_FAST = 1; // Probe Feedrate schnell laut einstellung im PP in HSM Works
 var GV_PROBE_SPEED_SLOW = 2; // Probe Feedrate langsam laut einstellung im PP in HSM Works
@@ -237,7 +230,7 @@ var GV_PAR_CIRC_ANG_B = 24; //the angle of the touch point relative to the WCS
 var GV_PAR_CIRC_ANG_C = 25; //the angle of the touch point relative to the WCS
 //var MACRO_LABEL = 9910;  //the number of the mlm macro to do the probing
 
-// End of edit
+// ################################End of edit#################################################
 
 var settings = {
   coolant: {
@@ -295,7 +288,7 @@ var settings = {
 
 
 
-// added by Tombo on 12.10.2024
+// EDIT
 function formatSetVar(gVar, val) {
   return "#" + gVar + "=" + val;
 }
@@ -339,14 +332,15 @@ function onOpen() {
       writeBlock(gUnitModal.format(21));
       break;
   }
-  // added by Tombo on 12.10.2024
+
+
+  // ################################EDIT#################################################
+
   // write probing variables
   writeComment("Probing control variables");
   writeBlock(formatSetVar(GV_PROBE_SPEED_FAST, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeFastSpeed["value"])));
   writeBlock(formatSetVar(GV_PROBE_SPEED_SLOW, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeSlowSpeed["value"])));
   writeBlock(formatSetVar(GV_PROBE_SLOW_DISTANCE, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeSlowDistance["value"])));
-
-
 }
 
 
@@ -370,7 +364,7 @@ function isProbeOperation() {
   return hasParameter("operation-strategy") && (getParameter("operation-strategy") == "probe");
 }
 
-// End of edit
+//// ################################End of edit#################################################
 
 
 
@@ -429,8 +423,7 @@ function onSection() {
   writeInitialPositioning(initialPosition, isRequired);
 
 
-  // added by tombo on 12.10.2024
-
+  // EDIT
 
   if (!isProbeOperation() &&
     (insertToolCall ||
@@ -547,7 +540,10 @@ function onCyclePoint(x, y, z) {
         break;
       */
 
-      // Probing routines - Added by mlm 03/10/2019
+
+      // ################################EDIT#################################################
+
+      // Probing routines
       case "probing-x":
         setMach3Variables(x, y, z, cycleType, 1);
         break;
@@ -605,7 +601,7 @@ function onCyclePoint(x, y, z) {
       case "probing-y-plane-angle":
         setMach3Variables(x, y, z, cycleType, 19);
         break;
-      // Probing routines - Added by mlm 02/11/2020
+
       case "probing-xy-circular-partial-boss":
         setMach3Variables(x, y, z, cycleType, 20);
         break;
@@ -637,6 +633,8 @@ function onCyclePoint(x, y, z) {
     }
   }
 }
+
+// ################################End of edit#################################################
 
 function onCycleEnd() {
   if (!cycleExpanded) {
@@ -791,7 +789,9 @@ function onClose() {
   writeln("%");
 }
 
-// sets the required Mach3 variables dependant upon the probe type - added by mlm
+// ################################EDIT#################################################
+
+// sets the required Mach3 variables dependant upon the probe type
 function setMach3Variables(x, y, z, cycleType, probeTypeNum) {
   // these are required by all probe types
   writeComment(cycleType);
@@ -916,6 +916,9 @@ function setMach3Variables(x, y, z, cycleType, probeTypeNum) {
   gMotionModal.reset();
 
 }
+
+// ################################End of edit#################################################
+
 
 // >>>>> INCLUDED FROM include_files/commonFunctions.cpi
 // internal variables, do not change
