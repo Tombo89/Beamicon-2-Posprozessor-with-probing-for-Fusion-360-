@@ -21,7 +21,8 @@ Unterprogramm fÃ¼r die Antastfunktion aus HSM Works / Fusion 360
 #28 (Aktueller Y Wert)
 #29 (Aktueller Z Wert)
 
-#951 (tiefste Z-Position
+#925 (Werkzeuglaenge)
+#951 (tiefste Z-Position)
 #955 (Durchmesser Tastkugel)
 #982 (Offset Z für 3D-Taster)
 
@@ -144,8 +145,8 @@ ENDIF
 #24=Z (Ermittelte Kante Z-Achse, Tastkugel nicht berÃ¼cksichtigt)
 G0 Z0 (Taster freifahren)
 #909=#22 (alten Nullpunkt vor G53 reaktivieren)
-#902=#24-#982 (Offset kompensiert Tastkopf-Länge)
-
+#902=#24-#925 (Offset kompensiert Tastkopf-Länge)
+PRINT "Offset G";53+#1;" Z=";#902
 L53 (Nullpunkt speichern)
 RETURN 
 ENDIF 
