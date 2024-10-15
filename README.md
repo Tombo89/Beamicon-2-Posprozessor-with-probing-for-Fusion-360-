@@ -22,6 +22,15 @@ Befor starting a created programm on your machine, make shure you set the origin
 
 
 
+
+
+<ol>
+    <li>1 Einzelfläche X</li>
+    <li>Einzelfläche Y</li>
+    <li>Einzelfläche Z</li>
+    <li>bei Dieter vorbeischauen</li>
+</ol>
+
 var GV_PROBE_SPEED_FAST = 1; // Probe Feedrate schnell laut einstellung im PP in HSM Works
 var GV_PROBE_SPEED_SLOW = 2; // Probe Feedrate langsam laut einstellung im PP in HSM Works
 var GV_PROBE_SLOW_DISTANCE = 3; // Wie weit soll sich die probe im slow modus bewegen laut einstellung im PP in HSM Works
