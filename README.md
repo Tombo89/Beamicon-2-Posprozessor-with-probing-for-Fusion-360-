@@ -7,7 +7,7 @@ This is a Postprozessor für Fusion 360 and HSM Works, for the Beamicon 2 Contro
 
 - not all probing cycles are implemented. See the list of implemented cycles below.
 - Y axis angle rotation doesnt work and needs to be fixed.
-- very slow Feedrate for probe moving distance
+- very slow Feedrate for probe moving distance (should be fixed on 15.10.24 to use the values set in the PP, but not tested jet)
 - lot of useless G0 Z0 inside subroutine file
 - <b>Probe crashes into origin at the end of Y axis angle rotation</b>
 

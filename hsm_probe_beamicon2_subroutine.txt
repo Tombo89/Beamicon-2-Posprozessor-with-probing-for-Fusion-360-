@@ -2,8 +2,9 @@
 
 Unterprogramm fÃ¼r die Antastfunktion aus HSM Works / Fusion 360
 
-
-#2 (Anfahrgeschwindigkeit)
+#100 (Anfahrgeschwindigkeit)
+#101 (Ausfahrgeschwindigkeit für Messung)
+#103 (Slow probe distance)
 #4 (Probe cycle Ã¼bermittelt vom PP)
 #6 (Startpunkt Y)
 #10 (Cycle Depth von Rueckzugshoehe)
@@ -51,12 +52,12 @@ G21 G40 G90 G94
 G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
 
 
-G1 F=#2 UNTIL #I9=1 X=X+#13+#14
+G1 F=#100 UNTIL #I9=1 X=X+#13+#14
 IF #I9=0 THEN 
   PRINT "left edge not found"
   M2 
 ENDIF
-G1 F=#954/10 UNTIL #I9=0 X=#27
+G1 F=#101 UNTIL #I9=0 X=#27
 IF #I9=1 THEN 
   PRINT "probe switch not released"
   M2 
@@ -91,12 +92,12 @@ G21 G40 G90 G94
 
 G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
 
-G1 F=#2 UNTIL #I9=1 Y=Y+#13+#14
+G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
 IF #I9=0 THEN 
   PRINT "front edge not found"
   M2 
 ENDIF
-G1 F=#954/10 UNTIL #I9=0 Y=#28
+G1 F=#101 UNTIL #I9=0 Y=#28
 IF #I9=1 THEN 
   PRINT "probe switch not released"
   M2 
@@ -129,13 +130,13 @@ IF #22=0 THEN
   M2
 ENDIF
 G53
-G1 F=#2 UNTIL #I9=1 Z=#951-#925
+G1 F=#100 UNTIL #I9=1 Z=#951-#925
 IF #I9=0 THEN 
   PRINT "probe switch not triggered"
   #909=#22
   M2 
 ENDIF 
-G1 F=#2/10 UNTIL #I9=0 Z=Z+2
+G1 F=#101 UNTIL #I9=0 Z=Z+2
 IF #I9=1 THEN 
   PRINT "probe switch not released" 
   #909=#22
@@ -175,12 +176,12 @@ G0 Z=#15 (Taster auf Rueckzugshoehe fahren)
 G0 Y=#28+(#17/2)+#13+(#955/2) (Y Ache positiv Verfahren um die HÃ¤lfte der Werkstuecklange + Abstand aus HSM Works + 1/2D Tastspitze)
 G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
 
-G1 F=#2 UNTIL #I9=1 Y=Y-#13-#14
+G1 F=#100 UNTIL #I9=1 Y=Y-#13-#14
 IF #I9=0 THEN 
   PRINT "front edge not found"
   M2 
 ENDIF
-G1 F=#2/10 UNTIL #I9=0 Y=Y+2
+G1 F=#101 UNTIL #I9=0 Y=Y+2
 IF #I9=1 THEN 
   PRINT "probe switch not released"
   M2 
@@ -191,12 +192,12 @@ G0 Z=#15
 G0 Y=#28-(#17/2)-#13-(#955/2) (Y Ache negativ Verfahren um die HÃ¤lfte der Werkstuecklange + Abstand aus HSM Works + 1/2D Tastspitze)
 G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
 
-G1 F=#2 UNTIL #I9=1 Y=Y+#13+#14
+G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
 IF #I9=0 THEN 
   PRINT "front edge not found"
   M2 
 ENDIF
-G1 F=#2/10 UNTIL #I9=0 Y=Y-2
+G1 F=#101 UNTIL #I9=0 Y=Y-2
 IF #I9=1 THEN 
   PRINT "probe switch not released"
   M2 
@@ -237,12 +238,12 @@ G21 G40 G90 G94
 G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
 G0 X=#27-(#19/2)
 
-G1 F=#2 UNTIL #I9=1 Y=Y+#13+#14
+G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
 IF #I9=0 THEN 
   PRINT "front edge not found"
   M2 
 ENDIF
-G1 F=#954/10 UNTIL #I9=0 Y=#28
+G1 F=#101 UNTIL #I9=0 Y=#28
 IF #I9=1 THEN 
   PRINT "probe switch not released"
   M2 
@@ -251,12 +252,12 @@ ENDIF
 G0 Y=#28
 
 G0 X=#27+(#19/2)
-G1 F=#2 UNTIL #I9=1 Y=Y+#13+#14
+G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
 IF #I9=0 THEN 
   PRINT "front edge not found"
   M2 
 ENDIF
-G1 F=#954/10 UNTIL #I9=0 Y=#28
+G1 F=#101 UNTIL #I9=0 Y=#28
 IF #I9=1 THEN 
   PRINT "probe switch not released"
   M2 

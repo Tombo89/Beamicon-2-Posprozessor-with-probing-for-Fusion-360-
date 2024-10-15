@@ -141,7 +141,19 @@ properties = {
     description: "Slow probe distance (mm)",
     type: "number",
     value: 1.0 // mm
-  }
+  },
+  secondprobe: {
+    title: "Make second proby cycle",
+    description: "'Yes' Starts a second slower probing cycle with defined values for better accuracy, and 'No' only one probing cycle.",
+    group: "formats",
+    type: "enum",
+    values: [
+      { title: "Yes", id: "true" },
+      { title: "No", id: "false" },
+    ],
+    value: "true",
+    scope: "post"
+  },
   // End of edit
 
 };
@@ -203,15 +215,20 @@ var gRetractModal = createOutputVariable({}, gFormat); // modal group 10 // G98-
 
 // Beamicon2 macro variable addresses 
 // These locations can be changed if there is a clash but must match those used in the macro
-var GV_PROBE_SPEED_FAST = 1; // Probe Feedrate schnell laut einstellung im PP in HSM Works
-var GV_PROBE_SPEED_SLOW = 2; // Probe Feedrate langsam laut einstellung im PP in HSM Works
-var GV_PROBE_SLOW_DISTANCE = 3; // Wie weit soll sich die probe im slow modus bewegen laut einstellung im PP in HSM Works
+
+// Global variables, stay after closing
+var GV_PROBE_SPEED_FAST = 100; // Probe Feedrate schnell laut einstellung im PP in HSM Works
+var GV_PROBE_SPEED_SLOW = 102; // Probe Feedrate langsam laut einstellung im PP in HSM Works
+var GV_PROBE_SLOW_DISTANCE = 103; // Slow Probe Distance einstellung im PP 
+var GV_FEEDRATE = 104; // HSM Works Einfahrvorschub des Probe Werkzeugs
+var GV_Zweiter_Antastvorgang = 105;
+
+// normal variables
 var GV_PROBE_TYPE = 4; // Nummer des ausgewÃ¤hlten Probetypen in HSM Works
 var GV_X = 5;
 var GV_Y = 6;
 var GV_Z = 7;
 var GV_TOOL_DIA = 8;
-var GV_FEEDRATE = 9; // HSM Works Einfahrvorschub
 var GV_DEPTH = 10; // HÃ¶he Rohteil + Z Zustellung (- Wert)
 var GV_APPROACH1 = 11;
 var GV_APPROACH2 = 12;
@@ -228,7 +245,6 @@ var GV_TOL_SIZE = 22;  //the tolerance for the size
 var GV_PAR_CIRC_ANG_A = 23; //the angle of the touch point relative to the WCS
 var GV_PAR_CIRC_ANG_B = 24; //the angle of the touch point relative to the WCS
 var GV_PAR_CIRC_ANG_C = 25; //the angle of the touch point relative to the WCS
-//var MACRO_LABEL = 9910;  //the number of the mlm macro to do the probing
 
 // ################################End of edit#################################################
 
@@ -341,6 +357,7 @@ function onOpen() {
   writeBlock(formatSetVar(GV_PROBE_SPEED_FAST, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeFastSpeed["value"])));
   writeBlock(formatSetVar(GV_PROBE_SPEED_SLOW, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeSlowSpeed["value"])));
   writeBlock(formatSetVar(GV_PROBE_SLOW_DISTANCE, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeSlowDistance["value"])));
+  writeBlock(formatSetVar(GV_Zweiter_Antastvorgang,  properties.secondprobe["value"]));
 }
 
 
