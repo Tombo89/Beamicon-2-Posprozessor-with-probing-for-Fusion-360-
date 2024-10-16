@@ -18,6 +18,17 @@ This postprozessor is used as every other Fusion / HSM PP .cps file.
 You can load it inside your software. You need to ad dthe hsm_probe_beamicon2_subroutine.txt file in your beamicon installations Macro folder.
 This file contains the original Beamicon2 Macros, that where edited to fit the Postprozessors output.
 
+With this postprozessor you will get 4 new settings in your software.
+
+<a href="" target="blank"><img align="center" src="/images/hsmwors_pp_settings.PNG" height="100" /></a>
+
+<ul>
+    <li>Fast probing speed (mm/min) - sets the fast speed for the first fast measuring cycle</li>
+    <li>Slow probe distance (mm)    - defines the distance that the probe should back up after beeing triggered</li>
+    <li>Slow probing speed (mm/min) - sets the slow speed for backing up after first measuring cycle and sets the speed for the second slow cycle if selected</li>
+    <li>Make second probe cycle     - can be set to yes or no. If set to yes a secon probe cycle at a slower speed will be made to improve accuracy</li>
+</ul>
+
 Befor starting a created programm on your machine, make shure you set the origin of the touchprobe to roughly the same starting point, rellative to your workpiece like in the cam Simulaion.
 
 
