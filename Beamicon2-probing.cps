@@ -221,6 +221,7 @@ var GV_PROBE_SLOW_DISTANCE = 103; // Slow Probe Distance einstellung im PP
 var GV_FEEDRATE = 104; // HSM Works Einfahrvorschub des Probe Werkzeugs
 var GV_Zweiter_Antastvorgang = 105; // Auswahl für zweiter Antastvorgang 1 - JA  // 2 - Nein
 
+
 // normal variables
 var GV_PROBE_TYPE = 4; // Nummer des ausgewÃ¤hlten Probetypen in HSM Works
 var GV_X = 5;
