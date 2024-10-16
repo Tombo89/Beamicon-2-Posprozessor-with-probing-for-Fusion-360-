@@ -31,7 +31,7 @@ With this postprozessor you will get 4 new settings in your software.
     <li>Fast probing speed (mm/min) - sets the fast speed for the first fast measuring cycle</li>
     <li>Slow probe distance (mm)    - defines the distance that the probe should back up after beeing triggered</li>
     <li>Slow probing speed (mm/min) - sets the slow speed for backing up after first measuring cycle and sets the speed for the second slow cycle if selected</li>
-    <li>Make second probe cycle     - can be set to yes or no. If set to yes a secon probe cycle at a slower speed will be made to improve accuracy</li>
+    <li>Make second probe cycle (not fully implemented)  - can be set to yes or no. If set to yes a secon probe cycle at a slower speed will be made to improve accuracy</li>
 </ul>
 
 Befor starting a created programm on your machine, make shure you set the origin of the touchprobe to roughly the same starting point, rellative to your workpiece like in the cam Simulaion.
