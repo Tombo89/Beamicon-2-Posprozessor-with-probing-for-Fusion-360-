@@ -12,6 +12,8 @@
 
 /**
   CHANGED to support WCS Probing
+  Most of the code is based on the Fusion 360 Postprozessor for Mach3 mith probing functionality by mlm solutions. http://www.mlmsolutions.biz/fusion_post_mach3_probing.php
+  Thank you for your work, and well documented changes in the code so its easy to adopt.
 */
 
 description = "Beamicon2 WCS Probing";
