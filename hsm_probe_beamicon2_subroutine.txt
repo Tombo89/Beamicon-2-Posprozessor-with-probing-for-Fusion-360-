@@ -43,39 +43,67 @@ Thank you for your work, and well documented changes in the code so its easy to 
 (######################################################## Einzelflaeche X ########################################################)
 IF #4=1 THEN
 
-IF #954=0 | #955=0 | #957=0 | #958=0 THEN (Parameter nicht gesetzt)
-  PRINT "undefined macro parameters, please check variables #951 and up"
-  M2
-ENDIF
-#22=#909 (verwendeter Nullpunkt G54..G59)
-IF #22=0 THEN
-  PRINT "no offset G54..G59 selected"
-  M2
-ENDIF
+  IF #954=0 | #955=0 | #957=0 | #958=0 THEN (Parameter nicht gesetzt)
+    PRINT "undefined macro parameters, please check variables #951 and up"
+    M2
+  ENDIF
+  #22=#909 (verwendeter Nullpunkt G54..G59)
+  IF #22=0 THEN
+    PRINT "no offset G54..G59 selected"
+    M2
+  ENDIF
 
-G21 G40 G90 G94
+  G21 G40 G90 G94
 
-G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
+  G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
 
+  IF #105=1 THEN (If second probe cycle is enabled)
 
-G1 F=#100 UNTIL #I9=1 X=X+#13+#14
-IF #I9=0 THEN 
-  PRINT "left edge not found"
-  M2 
-ENDIF
-G1 F=#101 UNTIL #I9=0 X=#27
-IF #I9=1 THEN 
-  PRINT "probe switch not released"
-  M2 
-ENDIF
-#23=X (Ermittelte Kante X-Achse, Tastkugel nicht berÃ¼cksichtigt)
-G0 X=#27
-#900=#900+#23+#955/2
-L53 (Nullpunkt speichern)
-G0 Z=0
-RETURN 
+    G1 F=#100 UNTIL #I9=1 X=X+#13+#14
+    IF #I9=0 THEN 
+      PRINT "left edge not found"
+      M2 
+    ENDIF
+    G1 F=#101 UNTIL #I9=0 X=#27
+    IF #I9=1 THEN 
+      PRINT "probe switch not released"
+      M2 
+    ENDIF
+    
+    G1 F=#100 X=X-#103
+    
+    G1 F=#101 UNTIL #I9=1 X=X+#103+#14
+    IF #I9=0 THEN 
+      PRINT "left edge not found"
+      M2 
+    ENDIF
+    G1 F=#101 UNTIL #I9=0 X=#27
+    IF #I9=1 THEN 
+      PRINT "probe switch not released"
+      M2 
+    ENDIF
+    #23=X (Ermittelte Kante X-Achse, Tastkugel nicht berÃ¼cksichtigt)
+    #900=#900+#23+#955/2
+    L53 (Nullpunkt speichern)
+    RETURN 
 
-
+  ELSE
+      G1 F=#100 UNTIL #I9=1 X=X+#13+#14
+    IF #I9=0 THEN 
+      PRINT "left edge not found"
+      M2 
+    ENDIF
+    G1 F=#101 UNTIL #I9=0 X=#27
+    IF #I9=1 THEN 
+      PRINT "probe switch not released"
+      M2 
+    ENDIF
+    #23=X (Ermittelte Kante X-Achse, Tastkugel nicht berÃ¼cksichtigt)
+    G0 X=#27
+    #900=#900+#23+#955/2
+    L53 (Nullpunkt speichern)
+    RETURN 
+  ENDIF
 ENDIF
 (###################################################### Einzelflaeche X End ######################################################)
 
@@ -84,38 +112,36 @@ ENDIF
 (######################################################## Einzelflaeche Y ########################################################)
 IF #4=2 THEN
 
-IF #954=0 | #955=0 | #957=0 | #958=0 THEN (Parameter nicht gesetzt)
-  PRINT "undefined macro parameters, please check variables #951 and up"
-  M2
-ENDIF
-#22=#909 (verwendeter Nullpunkt G54..G59)
-IF #22=0 THEN
-  PRINT "no offset G54..G59 selected"
-  M2
-ENDIF
+  IF #954=0 | #955=0 | #957=0 | #958=0 THEN (Parameter nicht gesetzt)
+    PRINT "undefined macro parameters, please check variables #951 and up"
+    M2
+  ENDIF
+  #22=#909 (verwendeter Nullpunkt G54..G59)
+  IF #22=0 THEN
+    PRINT "no offset G54..G59 selected"
+    M2
+  ENDIF
 
-G21 G40 G90 G94
+  G21 G40 G90 G94
 
-G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
+  G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
 
-G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
-IF #I9=0 THEN 
-  PRINT "front edge not found"
-  M2 
-ENDIF
-G1 F=#101 UNTIL #I9=0 Y=#28
-IF #I9=1 THEN 
-  PRINT "probe switch not released"
-  M2 
-ENDIF
-#21=Y (Ermittelte Kante Y-Achse, Tastkugel nicht berÃ¼cksichtigt)
-G0 Y=#28
-#901=#901+#21+#955/2
-L53 (Nullpunkt speichern)
-G0 Z=0
-RETURN 
-
-
+  G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
+  IF #I9=0 THEN 
+    PRINT "front edge not found"
+    M2 
+  ENDIF
+  G1 F=#101 UNTIL #I9=0 Y=#28
+  IF #I9=1 THEN 
+    PRINT "probe switch not released"
+    M2 
+  ENDIF
+  #21=Y (Ermittelte Kante Y-Achse, Tastkugel nicht berÃ¼cksichtigt)
+  G0 Y=#28
+  #901=#901+#21+#955/2
+  L53 (Nullpunkt speichern)
+  G0 Z=0
+  RETURN 
 ENDIF
 (###################################################### Einzelflaeche Y End ######################################################)
 
@@ -124,38 +150,38 @@ ENDIF
 (######################################################## Einzelflaeche Z ########################################################)
 IF #4=3 THEN
 
-IF #951=0 THEN
-  PRINT "undefined macro parameters, please check variables #951 and up"
-  M2
-ENDIF
-G21 G40 G90 G94
-#22=#909   (letzter Nullpunkt G54...)
+  IF #951=0 THEN
+    PRINT "undefined macro parameters, please check variables #951 and up"
+    M2
+  ENDIF
+  G21 G40 G90 G94
+  #22=#909   (letzter Nullpunkt G54...)
 
-IF #22=0 THEN
-  PRINT "no offset G54..G59 selected"
-  M2
-ENDIF
-G53
-G1 F=#100 UNTIL #I9=1 Z=#951-#925
-IF #I9=0 THEN 
-  PRINT "probe switch not triggered"
-  #909=#22
-  M2 
-ENDIF 
-G1 F=#101 UNTIL #I9=0 Z=Z+2
-IF #I9=1 THEN 
-  PRINT "probe switch not released" 
-  #909=#22
-  M2 
-ENDIF 
+  IF #22=0 THEN
+    PRINT "no offset G54..G59 selected"
+    M2
+  ENDIF
+  G53
+  G1 F=#100 UNTIL #I9=1 Z=#951-#925
+  IF #I9=0 THEN 
+    PRINT "probe switch not triggered"
+    #909=#22
+    M2 
+  ENDIF 
+  G1 F=#101 UNTIL #I9=0 Z=Z+2
+  IF #I9=1 THEN 
+    PRINT "probe switch not released" 
+    #909=#22
+    M2 
+  ENDIF 
 
-#24=Z (Ermittelte Kante Z-Achse, Tastkugel nicht berÃ¼cksichtigt)
-G0 Z0 (Taster freifahren)
-#909=#22 (alten Nullpunkt vor G53 reaktivieren)
-#902=#24-#925 (#925 gemessen Werkzeuglänge von 3D Taster)
-PRINT "Offset G";53+#1;" Z=";#902
-L53 (Nullpunkt speichern)
-RETURN 
+  #24=Z (Ermittelte Kante Z-Achse, Tastkugel nicht berÃ¼cksichtigt)
+  G0 Z0 (Taster freifahren)
+  #909=#22 (alten Nullpunkt vor G53 reaktivieren)
+  #902=#24-#925 (#925 gemessen Werkzeuglänge von 3D Taster)
+  PRINT "Offset G";53+#1;" Z=";#902
+  L53 (Nullpunkt speichern)
+  RETURN 
 ENDIF 
 (###################################################### Einzelflache Z End ######################################################)
 
@@ -167,61 +193,59 @@ ENDIF
 (######################################################## HSM Auswahl ########################################################)
 IF #4=5 THEN
 
-IF #954=0 | #955=0 | #957=0 | #958=0 THEN (Parameter nicht gesetzt)
-  PRINT "undefined macro parameters, please check variables #951 and up"
-  M2
-ENDIF
-#22=#909 (verwendeter Nullpunkt G54..G59)
-IF #22=0 THEN
-  PRINT "no offset G54..G59 selected"
-  M2
-ENDIF
-G21 G40 G90 G94
+  IF #954=0 | #955=0 | #957=0 | #958=0 THEN (Parameter nicht gesetzt)
+    PRINT "undefined macro parameters, please check variables #951 and up"
+    M2
+  ENDIF
+  #22=#909 (verwendeter Nullpunkt G54..G59)
+  IF #22=0 THEN
+    PRINT "no offset G54..G59 selected"
+    M2
+  ENDIF
+  G21 G40 G90 G94
 
-G0 Z=#15 (Taster auf Rueckzugshoehe fahren)
-G0 Y=#28+(#17/2)+#13+(#955/2) (Y Ache positiv Verfahren um die HÃ¤lfte der Werkstuecklange + Abstand aus HSM Works + 1/2D Tastspitze)
-G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
+  G0 Z=#15 (Taster auf Rueckzugshoehe fahren)
+  G0 Y=#28+(#17/2)+#13+(#955/2) (Y Ache positiv Verfahren um die HÃ¤lfte der Werkstuecklange + Abstand aus HSM Works + 1/2D Tastspitze)
+  G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
 
-G1 F=#100 UNTIL #I9=1 Y=Y-#13-#14
-IF #I9=0 THEN 
-  PRINT "front edge not found"
-  M2 
-ENDIF
-G1 F=#101 UNTIL #I9=0 Y=Y+2
-IF #I9=1 THEN 
-  PRINT "probe switch not released"
-  M2 
-ENDIF
-#21=Y (Ermittelte Kante Y-Achse, Tastkugel nicht berÃ¼cksichtigt)
-G0 Y=Y+2
-G0 Z=#15
-G0 Y=#28-(#17/2)-#13-(#955/2) (Y Ache negativ Verfahren um die HÃ¤lfte der Werkstuecklange + Abstand aus HSM Works + 1/2D Tastspitze)
-G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
+  G1 F=#100 UNTIL #I9=1 Y=Y-#13-#14
+  IF #I9=0 THEN 
+    PRINT "front edge not found"
+    M2 
+  ENDIF
+  G1 F=#101 UNTIL #I9=0 Y=Y+2
+  IF #I9=1 THEN 
+    PRINT "probe switch not released"
+    M2 
+  ENDIF
+  #21=Y (Ermittelte Kante Y-Achse, Tastkugel nicht berÃ¼cksichtigt)
+  G0 Y=Y+2
+  G0 Z=#15
+  G0 Y=#28-(#17/2)-#13-(#955/2) (Y Ache negativ Verfahren um die HÃ¤lfte der Werkstuecklange + Abstand aus HSM Works + 1/2D Tastspitze)
+  G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
 
-G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
-IF #I9=0 THEN 
-  PRINT "front edge not found"
-  M2 
-ENDIF
-G1 F=#101 UNTIL #I9=0 Y=Y-2
-IF #I9=1 THEN 
-  PRINT "probe switch not released"
-  M2 
-ENDIF
+  G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
+  IF #I9=0 THEN 
+    PRINT "front edge not found"
+    M2 
+  ENDIF
+  G1 F=#101 UNTIL #I9=0 Y=Y-2
+  IF #I9=1 THEN 
+    PRINT "probe switch not released"
+    M2 
+  ENDIF
 
-G0 Y=Y-2
-G0 Z=#15
-G0 Y=(Y+#21)/2
-#28=Y
-
-
-
-PRINT "Y=";#28
-#901=#901+#28+#955/2
-L53 (Nullpunkt speichern)
-RETURN 
+  G0 Y=Y-2
+  G0 Z=#15
+  G0 Y=(Y+#21)/2
+  #28=Y
 
 
+
+  PRINT "Y=";#28
+  #901=#901+#28+#955/2
+  L53 (Nullpunkt speichern)
+  RETURN 
 ENDIF
 (###################################################### HSM Auswahl End ######################################################)
 
@@ -229,52 +253,52 @@ ENDIF
 (######################################################## Einzelner Flaechenwinkel Y ########################################################)
 IF #4=19 THEN
 
-IF #954=0 | #955=0 | #957=0 | #958=0 THEN (Parameter nicht gesetzt)
-  PRINT "undefined macro parameters, please check variables #951 and up"
-  M2
-ENDIF
-#22=#909 (verwendeter Nullpunkt G54..G59)
-IF #22=0 THEN
-  PRINT "no offset G54..G59 selected"
-  M2
-ENDIF
+  IF #954=0 | #955=0 | #957=0 | #958=0 THEN (Parameter nicht gesetzt)
+    PRINT "undefined macro parameters, please check variables #951 and up"
+    M2
+  ENDIF
+  #22=#909 (verwendeter Nullpunkt G54..G59)
+  IF #22=0 THEN
+    PRINT "no offset G54..G59 selected"
+    M2
+  ENDIF
 
-G21 G40 G90 G94
+  G21 G40 G90 G94
 
-G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
-G0 X=#27-(#19/2)
+  G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
+  G0 X=#27-(#19/2)
 
-G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
-IF #I9=0 THEN 
-  PRINT "front edge not found"
-  M2 
-ENDIF
-G1 F=#101 UNTIL #I9=0 Y=#28
-IF #I9=1 THEN 
-  PRINT "probe switch not released"
-  M2 
-ENDIF
-#21=Y (Ermittelte Kante Y-Achse, Tastkugel nicht berÃ¼cksichtigt)
-G0 Y=#28
+  G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
+  IF #I9=0 THEN 
+    PRINT "front edge not found"
+    M2 
+  ENDIF
+  G1 F=#101 UNTIL #I9=0 Y=#28
+  IF #I9=1 THEN 
+    PRINT "probe switch not released"
+    M2 
+  ENDIF
+  #21=Y (Ermittelte Kante Y-Achse, Tastkugel nicht berÃ¼cksichtigt)
+  G0 Y=#28
 
-G0 X=#27+(#19/2)
-G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
-IF #I9=0 THEN 
-  PRINT "front edge not found"
-  M2 
-ENDIF
-G1 F=#101 UNTIL #I9=0 Y=#28
-IF #I9=1 THEN 
-  PRINT "probe switch not released"
-  M2 
-ENDIF
-#26=ATAN((Y-#21)/#19)*(180/(4*ATAN(1)))*1000
-G0 Y=#28
-PRINT "Winkel R=";#26
-G68 X0 Y0 R=#26
-G0 Z=0
+  G0 X=#27+(#19/2)
+  G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
+  IF #I9=0 THEN 
+    PRINT "front edge not found"
+    M2 
+  ENDIF
+  G1 F=#101 UNTIL #I9=0 Y=#28
+  IF #I9=1 THEN 
+    PRINT "probe switch not released"
+    M2 
+  ENDIF
+  #26=ATAN((Y-#21)/#19)*(180/(4*ATAN(1)))*1000
+  G0 Y=#28
+  PRINT "Winkel R=";#26
+  G68 X0 Y0 R=#26
+  G0 Z=0
 
-RETURN
+  RETURN
 ENDIF
 (###################################################### Einzelner Flaechenwinkel Y END ######################################################)
 
