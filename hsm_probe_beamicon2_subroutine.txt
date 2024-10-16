@@ -268,7 +268,7 @@ IF #I9=1 THEN
   PRINT "probe switch not released"
   M2 
 ENDIF
-#26=ATAN((Y-#21)/#19)*(180/(4*ATAN(1)))
+#26=ATAN((Y-#21)/#19)*(180/(4*ATAN(1)))*1000
 G0 Y=#28
 PRINT "Winkel R=";#26
 G68 X0 Y0 R=#26
