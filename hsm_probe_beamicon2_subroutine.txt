@@ -110,7 +110,7 @@ ENDIF
 
 
 
-(######################################################## Einzelflaeche Y ########################################################)
+(######################################################## Einzelflaeche Y Second probe type supported ########################################################)
 IF #4=2 THEN
 
   IF #954=0 | #955=0 | #957=0 | #958=0 THEN (Parameter nicht gesetzt)
@@ -177,7 +177,7 @@ ENDIF
 
 
 
-(######################################################## Einzelflaeche Z ########################################################)
+(######################################################## Einzelflaeche Z second probe supported ########################################################)
 IF #4=3 THEN
 
   IF #951=0 THEN
@@ -192,26 +192,65 @@ IF #4=3 THEN
     M2
   ENDIF
   G53
-  G1 F=#100 UNTIL #I9=1 Z=#951-#925
-  IF #I9=0 THEN 
-    PRINT "probe switch not triggered"
-    #909=#22
-    M2 
-  ENDIF 
-  G1 F=#102 UNTIL #I9=0 Z=Z+2
-  IF #I9=1 THEN 
-    PRINT "probe switch not released" 
-    #909=#22
-    M2 
-  ENDIF 
+  IF #105=1 THEN (If second probe cycle is enabled)
+    G1 F=#100 UNTIL #I9=1 Z=#951-#925
+      IF #I9=0 THEN 
+        PRINT "probe switch not triggered"
+        #909=#22
+        M2 
+      ENDIF 
+    G1 F=#102 UNTIL #I9=0 Z=Z+2
+      IF #I9=1 THEN 
+        PRINT "probe switch not released" 
+        #909=#22
+        M2 
+      ENDIF
+    G1 F=#100 Z=Z-#103
+    
+    G1 F=#102 UNTIL #I9=1 Z=#951-#925
+      IF #I9=0 THEN 
+        PRINT "probe switch not triggered"
+        #909=#22
+        M2 
+      ENDIF 
+    G1 F=#102 UNTIL #I9=0 Z=Z+2
+      IF #I9=1 THEN 
+        PRINT "probe switch not released" 
+        #909=#22
+        M2  
+      ENDIF 
 
-  #24=Z (Ermittelte Kante Z-Achse, Tastkugel nicht berÃ¼cksichtigt)
-  G0 Z0 (Taster freifahren)
-  #909=#22 (alten Nullpunkt vor G53 reaktivieren)
-  #902=#24-#925 (#925 gemessen Werkzeuglänge von 3D Taster)
-  PRINT "Offset G";53+#1;" Z=";#902
-  L53 (Nullpunkt speichern)
-  RETURN 
+    #24=Z (Ermittelte Kante Z-Achse, Tastkugel nicht beruecksichtigt)
+    G1 F=#104 Z=#15  (Taster freifahren)
+    #909=#22 (alten Nullpunkt vor G53 reaktivieren)
+    #902=#24-#925 (#925 gemessen Werkzeuglänge von 3D Taster)
+    PRINT "Offset G";53+#1;" Z=";#902
+    L53 (Nullpunkt speichern)
+    RETURN
+    
+    ELSE
+    G1 F=#100 UNTIL #I9=1 Z=#951-#925
+    IF #I9=0 THEN 
+      PRINT "probe switch not triggered"
+      #909=#22
+      M2 
+    ENDIF 
+    G1 F=#102 UNTIL #I9=0 Z=Z+2
+    IF #I9=1 THEN 
+      PRINT "probe switch not released" 
+      #909=#22
+      M2 
+      
+    ENDIF 
+
+    #24=Z (Ermittelte Kante Z-Achse, Tastkugel nicht berÃ¼cksichtigt)
+    G1 F=#104 Z=#15  (Taster freifahren)
+    #909=#22 (alten Nullpunkt vor G53 reaktivieren)
+    #902=#24-#925 (#925 gemessen Werkzeuglänge von 3D Taster)
+    PRINT "Offset G";53+#1;" Z=";#902
+    L53 (Nullpunkt speichern)
+    RETURN 
+  ENDIF
 ENDIF 
 (###################################################### Einzelflache Z End ######################################################)
 
