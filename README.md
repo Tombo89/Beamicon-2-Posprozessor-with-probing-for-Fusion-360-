@@ -1,7 +1,7 @@
 # Beamicon-2-Posprozessor-with-probing-for-Fusion-360-
 This is a Postprozessor für Fusion 360 and HSM Works, for the Beamicon 2 Control Soft- and hardware. It supports the Probing function of HSM and Fusion 360 Cam.
 
-## Please be carefull! This Postprozessor is still in developement and can cause serious harm to the machine or operator. Use it as a beta, to find issues, so that they can be eliminated.
+## Please be carefull! This Postprozessor is still in developement and can cause serious harm to the machine or operator. Use it as a beta, to find issues, so that they can be eliminated. The Code is mostly copyed together from various resources an need to be clead up.
 
 # Known Issues
 
