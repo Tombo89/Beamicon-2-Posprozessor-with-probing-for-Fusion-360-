@@ -20,7 +20,7 @@ This file contains the original Beamicon2 Macros, that where edited to fit the P
 
 With this postprozessor you will get 4 new settings in your software.
 
-<a href="" target="blank"><img align="center" src="/images/hsmworks_pp_settings.PNG" height="100" /></a>
+<a href="" target="blank"><img align="center" src="/images/hsmworks_pp_settings.PNG" height="250" /></a>
 
 <ul>
     <li>Fast probing speed (mm/min) - sets the fast speed for the first fast measuring cycle</li>
