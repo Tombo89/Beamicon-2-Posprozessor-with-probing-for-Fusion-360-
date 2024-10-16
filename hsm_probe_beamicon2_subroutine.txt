@@ -56,7 +56,7 @@ IF #4=1 THEN
 
   G21 G40 G90 G94
 
-  G1 F=#104 Z=Z-#10-#8 (Z auf ProbehÃ¶he aus HSM Works fahren)
+  G1 F=#104 Z=Z-#10-#8 (Z auf Probehoehe aus HSM Works fahren)
 
   IF #105=1 THEN (If second probe cycle is enabled)
 
@@ -125,24 +125,53 @@ IF #4=2 THEN
 
   G21 G40 G90 G94
 
-  G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
+  G1 F=#104 Z=Z-#10-#8 (Z auf Probehoehe aus HSM Works fahren)
 
-  G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
-  IF #I9=0 THEN 
-    PRINT "front edge not found"
-    M2 
+  IF #105=1 THEN (If second probe cycle is enabled)
+    G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
+      IF #I9=0 THEN 
+        PRINT "front edge not found"
+        M2 
+      ENDIF
+      G1 F=#102 UNTIL #I9=0 Y=#28
+      IF #I9=1 THEN 
+        PRINT "probe switch not released"
+        M2 
+      ENDIF
+
+      G1 F=#100 Y=Y-#103
+      
+      G1 F=#102 UNTIL #I9=1 Y=Y+#13+#14
+      IF #I9=0 THEN 
+        PRINT "front edge not found"
+        M2 
+      ENDIF
+      G1 F=#102 UNTIL #I9=0 Y=#28
+      IF #I9=1 THEN 
+        PRINT "probe switch not released"
+        M2 
+      ENDIF
+    #21=Y (Ermittelte Kante Y-Achse, Tastkugel nicht beruecksichtigt)
+    #901=#901+#21+#955/2
+    L53 (Nullpunkt speichern)
+    RETURN
+  
+  ELSE
+    G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
+    IF #I9=0 THEN 
+      PRINT "front edge not found"
+      M2 
+    ENDIF
+    G1 F=#102 UNTIL #I9=0 Y=#28
+    IF #I9=1 THEN 
+      PRINT "probe switch not released"
+      M2 
+    ENDIF
+    #21=Y (Ermittelte Kante Y-Achse, Tastkugel nicht beruecksichtigt)
+    #901=#901+#21+#955/2
+    L53 (Nullpunkt speichern)
+    RETURN 
   ENDIF
-  G1 F=#102 UNTIL #I9=0 Y=#28
-  IF #I9=1 THEN 
-    PRINT "probe switch not released"
-    M2 
-  ENDIF
-  #21=Y (Ermittelte Kante Y-Achse, Tastkugel nicht berÃ¼cksichtigt)
-  G0 Y=#28
-  #901=#901+#21+#955/2
-  L53 (Nullpunkt speichern)
-  G0 Z=0
-  RETURN 
 ENDIF
 (###################################################### Einzelflaeche Y End ######################################################)
 
@@ -266,7 +295,7 @@ IF #4=19 THEN
 
   G21 G40 G90 G94
 
-  G0 Z=#15-#10 (Z auf ProbehÃ¶he aus HSM Works fahren)
+  G1 F=#104 Z=Z-#10-#8 (Z auf Probehoehe aus HSM Works fahren)
   G0 X=#27-(#19/2)
 
   G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
