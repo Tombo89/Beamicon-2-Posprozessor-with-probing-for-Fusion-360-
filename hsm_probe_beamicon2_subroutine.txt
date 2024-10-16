@@ -56,7 +56,7 @@ IF #4=1 THEN
 
   G21 G40 G90 G94
 
-  G1 F=#104 Z=Z-#10-#8 (Z auf Probehoehe aus HSM Works fahren)
+  G1 F=#104 Z=0-#8 (Z auf Probehoehe aus HSM Works fahren)
 
   IF #105=1 THEN (If second probe cycle is enabled)
 
@@ -125,7 +125,7 @@ IF #4=2 THEN
 
   G21 G40 G90 G94
 
-  G1 F=#104 Z=Z-#10-#8 (Z auf Probehoehe aus HSM Works fahren)
+  G1 F=#104 Z=0-#8 (Z auf Probehoehe aus HSM Works fahren)
 
   IF #105=1 THEN (If second probe cycle is enabled)
     G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
@@ -221,7 +221,7 @@ IF #4=3 THEN
       ENDIF 
 
     #24=Z (Ermittelte Kante Z-Achse, Tastkugel nicht beruecksichtigt)
-    G1 F=#104 Z=#15  (Taster freifahren)
+    G1 F=#104 Z=0  (Taster freifahren)
     #909=#22 (alten Nullpunkt vor G53 reaktivieren)
     #902=#24-#925 (#925 gemessen Werkzeuglänge von 3D Taster)
     PRINT "Offset G";53+#1;" Z=";#902
@@ -244,7 +244,7 @@ IF #4=3 THEN
     ENDIF 
 
     #24=Z (Ermittelte Kante Z-Achse, Tastkugel nicht berÃ¼cksichtigt)
-    G1 F=#104 Z=#15  (Taster freifahren)
+    G1 F=#104 Z=0  (Taster freifahren)
     #909=#22 (alten Nullpunkt vor G53 reaktivieren)
     #902=#24-#925 (#925 gemessen Werkzeuglänge von 3D Taster)
     PRINT "Offset G";53+#1;" Z=";#902
@@ -334,7 +334,7 @@ IF #4=19 THEN
 
   G21 G40 G90 G94
 
-  G1 F=#104 Z=Z-#10-#8 (Z auf Probehoehe aus HSM Works fahren)
+  G1 F=#104 Z=0-#8 (Z auf Probehoehe aus HSM Works fahren)
   G0 X=#27-(#19/2)
 
   G1 F=#100 UNTIL #I9=1 Y=Y+#13+#14
