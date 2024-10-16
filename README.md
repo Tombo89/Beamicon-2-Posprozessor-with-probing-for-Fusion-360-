@@ -1,7 +1,7 @@
 # Beamicon-2-Posprozessor-with-probing-for-Fusion-360-
 This is a Postprozessor für Fusion 360 and HSM Works, for the Beamicon 2 Control Soft- and hardware. It supports the Probing function of HSM and Fusion 360 Cam.
 
-Most of the code is based on the Fusion 360 Postprozessor for Mach3 mith probing functionality by mlm solutions. <a href>http://www.mlmsolutions.biz/fusion_post_mach3_probing.php
+Most of the code is based on the Fusion 360 Postprozessor for Mach3 with probing functionality by mlm solutions. <a href>http://www.mlmsolutions.biz/fusion_post_mach3_probing.php
 </a>. Thank you for your work, and well documented changes in the code so its easy to adopt.
 
 As the code of mlm is free to use, and I am allowed to use it here, this code will also be free to use, change or adapt to your requirements.
