@@ -46,8 +46,8 @@ The Machine will start the probing cycle with the fast speed, and will back up w
     <li>Einzelfläche X</li>
     <li>Einzelfläche Y</li>
     <li>Einzelfläche Z</li>
-    <li>X Steg</li>
-    <li>Y Steg</li>
+    <li></li>
+    <li></li>
     <li></li>
     <li></li>
     <li></li>
@@ -66,31 +66,4 @@ The Machine will start the probing cycle with the fast speed, and will back up w
 
 # Variables created by the Postprozessor
 
-<ol>
-<li>var GV_PROBE_SPEED_FAST = 1; // Probe Feedrate schnell laut einstellung im PP in HSM Works</li>
-<li>var GV_PROBE_SPEED_SLOW = 2; // Probe Feedrate langsam laut einstellung im PP in HSM Works</li>
-<li>var GV_PROBE_SLOW_DISTANCE = 3; // Wie weit soll sich die probe im slow modus bewegen laut einstellung im PP in HSM Works</li>
-<li>var GV_PROBE_TYPE = 4; // Nummer des ausgewÃ¤hlten Probetypen in HSM Works</li>
-<li>var GV_X = 5; </li>
-<li>var GV_Y = 6; </li>
-<li>var GV_Z = 7; // Einstellung Rohteil Oberkante HSM Works</li>
-<li>var GV_TOOL_DIA = 8;</li>
-<li>var GV_FEEDRATE = 9; // HSM Works Einfahrvorschub</li>
-<li>var GV_DEPTH = 10; // Rueckzugshoehe + Messtiefe+1mm</li>
-<li>var GV_APPROACH1 = 11;</li>
-<li>var GV_APPROACH2 = 12;</li>
-<li>var GV_CLEARANCE = 13; // Abstand 1 HSM Works rÃ¼ckzug vom WerkstÃ¼ck</li>
-<li>var GV_OVERTRAVEL = 14; // Abstand den der Taster Ã¼ber den erwarteten Weg hinausfahren darf laut HSM Works Einstellung</li>
-<li>var GV_RETRACT = 15; // RÃ¼ckzughÃ¶he in HSM Works</li>
-<li>var GV_WCS = 16;</li>
-<li>var GV_WIDTH1 = 17; // Breite anzutastendes Objekt in Richtung Y</li>
-<li>var GV_WIDTH2 = 18;</li>
-<li>var GV_PROBE_SPACING = 19; // Abstand 2 in HSM Works zwischen den TastPunkten</li>
-<li>var GV_TOL_POSITION = 20;  //the tolerance for the position</li>
-<li>var GV_TOL_ANGLE = 21;  //the tolerance for the angle</li>
-<li>var GV_TOL_SIZE = 22;  //the tolerance for the size</li>
-<li>var GV_PAR_CIRC_ANG_A = 23; //the angle of the touch point relative to the WCS</li>
-<li>var GV_PAR_CIRC_ANG_B = 24; //the angle of the touch point relative to the WCS</li>
-<li>var GV_PAR_CIRC_ANG_C = 25; //the angle of the touch point relative to the WCSc</li>
-
-</ol>
+coming soon
