@@ -230,6 +230,7 @@ var GV_X = 5;
 var GV_Y = 6;
 var GV_Z = 7;
 var GV_TOOL_DIA = 8;
+var GV_BOTTOM = 9; // The final depth position along the probe axis to touch the part
 var GV_DEPTH = 10; // HÃ¶he Rohteil + Z Zustellung (- Wert)
 var GV_APPROACH1 = 11;
 var GV_APPROACH2 = 12;
@@ -822,6 +823,7 @@ function setMach3Variables(x, y, z, cycleType, probeTypeNum) {
   writeBlock(formatSetVar(GV_CLEARANCE, xyzFormat.format(cycle.probeClearance)));
   writeBlock(formatSetVar(GV_OVERTRAVEL, xyzFormat.format(cycle.probeOvertravel)));
   writeBlock(formatSetVar(GV_RETRACT, xyzFormat.format(cycle.retract)));
+  writeBlock(formatSetVar(GV_BOTTOM, xyzFormat.format(cycle.bottom)));
 
   switch (probeTypeNum) {
     case 1:
