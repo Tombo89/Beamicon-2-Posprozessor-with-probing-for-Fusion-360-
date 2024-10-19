@@ -145,8 +145,18 @@ properties = {
     value: 1.0 // mm
   },
   secondprobe: {
-    title: "Make second proby cycle",
+    title: "Make second probe cycle",
     description: "'Yes' Starts a second slower probing cycle with defined values for better accuracy, and 'No' only one probing cycle.",
+    type: "enum",
+    values: [
+      { title: "Yes", id: "1" },
+      { title: "No", id: "0" },
+    ],
+    value: "1" // 1 - ON 2 - OFF
+  },
+  useG0: {
+    title: "G0 for probe Travel moves",
+    description: "'Yes' sets the travel moves while probing to Rapid Moves, 'No' uses the probe fast speed for travel",
     type: "enum",
     values: [
       { title: "Yes", id: "1" },
@@ -231,7 +241,7 @@ var GV_Y = 6;
 var GV_Z = 7;
 var GV_TOOL_DIA = 8;
 var GV_BOTTOM = 9; // The final depth position along the probe axis to touch the part
-var GV_DEPTH = 10; // HÃ¶he Rohteil + Z Zustellung (- Wert)
+var GV_DEPTH = 10; // The unsigned incremental distance from the top of the part along the probe axis where the probe will touch the part.
 var GV_APPROACH1 = 11;
 var GV_APPROACH2 = 12;
 var GV_CLEARANCE = 13; // Abstand 1 HSM Works rÃ¼ckzug vom WerkstÃ¼ck
@@ -360,6 +370,7 @@ function onOpen() {
   writeBlock(formatSetVar(GV_PROBE_SPEED_SLOW, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeSlowSpeed["value"])));
   writeBlock(formatSetVar(GV_PROBE_SLOW_DISTANCE, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeSlowDistance["value"])));
   writeBlock(formatSetVar(GV_Zweiter_Antastvorgang, getProperty("secondprobe") ));
+  writeBlock(formatSetVar(GV_Zweiter_Antastvorgang, getProperty("useG0") ));
 }
 
 
