@@ -19,7 +19,7 @@ As the code of mlm is free to use, and I am allowed to use it here, this code wi
 
 This postprozessor is used as every other Fusion / HSM PP .cps file.
 You can load it inside your software. You need to ad dthe hsm_probe_beamicon2_subroutine.txt file in your beamicon installations Macro folder.
-This file contains the original Beamicon2 Macros, that where edited to fit the Postprozessors output.
+This file contains Beamicon2 Macros, that where edited to fit the Postprozessors output.
 
 With this postprozessor you will get 4 new settings in your software.
 
