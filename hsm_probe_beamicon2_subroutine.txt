@@ -13,6 +13,7 @@ Thank you for your work, and well documented changes in the code so its easy to 
 
 #4 (Probe cycle Ã¼bermittelt vom PP)
 #6 (Startpunkt Y)
+#9 (The final depth position along the probe axis to touch the part)  Wenn getestet dann Z Antasthöhe hierüber festlegen, anstatt Z=0-#8
 #10 (Rueckzugshoehe)
 #11 (Z hoehe Antastvorgang)
 #13 (Abstand Probe zu Werkstueck)
@@ -252,11 +253,6 @@ IF #4=3 THEN
   ENDIF
 ENDIF 
 (###################################################### Einzelflache Z End ######################################################)
-
-(######################################################## HSM Auswahl ########################################################)
-IF #4=2 THEN
-ENDIF 
-(###################################################### HSM Auswahl End ######################################################)
 
 (######################################################## X Steg support second probing ########################################################)
 IF #4=4 THEN
@@ -509,6 +505,10 @@ IF #4=5 THEN
 ENDIF
 (###################################################### Y Steg End ######################################################)
 
+(######################################################## HSM Auswahl ########################################################)
+IF #4=6 THEN
+ENDIF 
+(###################################################### HSM Auswahl End ######################################################)
 
 (######################################################## Einzelner Flaechenwinkel Y ########################################################)
 IF #4=19 THEN
