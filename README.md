@@ -44,8 +44,8 @@ The Machine will start the probing cycle with the fast speed, and will back up w
     <li>Einzelfläche X</li>
     <li>Einzelfläche Y</li>
     <li>Einzelfläche Z</li>
-    <li>X Steg</li>
-    <li>Y Steg</li>
+    <li>X Steg</li> <b>maybe not working correctly. Currently working on a fix</b>
+    <li>Y Steg</li> <b>maybe not working correctly. Currently working on a fix</b>
     <li></li>
     <li></li>
     <li></li>
