@@ -59,7 +59,7 @@ The Machine will start the probing cycle with the fast speed, and will back up w
     <li></li>
     <li></li>
     <li></li>
-    <li>Einzelner Flaechenwinkel Y <b>not working correctly. got some problems with the angle or maybe x - y 0 positioning. Currently working on a fix</b></li>
+    <li>Einzelner Flaechenwinkel Y</li><b>not working correctly. got some problems with the angle or maybe x - y 0 positioning. Currently working on a fix</b>
 </ol>
 
 # Variables created by the Postprozessor
