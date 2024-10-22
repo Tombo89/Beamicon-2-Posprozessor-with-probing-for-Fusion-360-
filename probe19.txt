@@ -334,6 +334,7 @@ IF #105=1 | #106=0 | #11=-1 THEN (Ist zweites Antasten und G0 fuer positionierun
     RETURN    
 ENDIF
 
+(################################################################################################################################################################################)
 
 ELSE (ohne zweiten Antastvorgang nich unterstuezt)
     PRINT "only one probing cycle at fast speed is currently not supported. Select second Probe cycle"
