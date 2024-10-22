@@ -1,4 +1,4 @@
-#NAME probe19.txt #LABEL "Z0 Subroutine to support Probing in HSM Works / Fusin 360"
+#NAME probe3.txt #LABEL "Z0 Subroutine to support Probing in HSM Works / Fusin 360"
 
 
 Unterprogramm fuer die Antastfunktion aus HSM Works / Fusion 360 in Verbindung mit dem Probing PP
