@@ -18,10 +18,10 @@ As the code of mlm is free to use, and I am allowed to use it here, this code wi
 # How to use this Postprozessor
 
 This postprozessor is used as every other Fusion / HSM PP .cps file.
-You can load it inside your software. You need to ad dthe hsm_probe_beamicon2_subroutine.txt file in your beamicon installations Macro folder.
-This file contains Beamicon2 Macros, that where edited to fit the Postprozessors output.
+You can load it inside your software. You need to add the probe"number".txt files in your beamicon installations Macro folder.
+These files contain Beamicon2 Macros that ineract with the pp variables and do the probing.
 
-With this postprozessor you will get 4 new settings in your software.
+With this postprozessor you will get 5 new settings in your software.
 
 <a href="" target="blank"><img align="center" src="/images/hsmworks_pp_settings.PNG" height="250" /></a>
 
@@ -29,7 +29,8 @@ With this postprozessor you will get 4 new settings in your software.
     <li>Fast probing speed (mm/min) - sets the fast speed for the first fast measuring cycle</li>
     <li>Slow probe distance (mm)    - defines the distance that the probe should back up after beeing triggered</li>
     <li>Slow probing speed (mm/min) - sets the slow speed for backing up after first measuring cycle and sets the speed for the second slow cycle if selected</li>
-    <li>Make second probe cycle     - can be set to yes or no. If set to yes a second probe cycle at a slower speed will be made to improve accuracy</li>
+    <li>Make second probe cycle     - can be set to yes or no. Need to be set to Yes (default). Only one probing cycle is not supportet at the moment</li>
+    <li>Use G0 for positioning      - can be set to yes or no. If set to Yes, Probe will move into Position at G0 Speed. If set to No probe will move with probe speed set in HSM Works</li>
 </ul>
 
 Befor starting a created programm on your machine, make shure you set the origin of the touchprobe to roughly the same starting point, rellative to your workpiece like in the cam Simulaion.
@@ -44,8 +45,8 @@ The Machine will start the probing cycle with the fast speed, and will back up w
     <li>Einzelfläche X</li>
     <li>Einzelfläche Y</li>
     <li>Einzelfläche Z</li>
-    <li>X Steg</li> <b>maybe not working correctly. Currently working on a fix</b>
-    <li>Y Steg</li> <b>maybe not working correctly. Currently working on a fix</b>
+    <li>X Steg</li>
+    <li>Y Steg</li>
     <li></li>
     <li></li>
     <li></li>
@@ -59,7 +60,7 @@ The Machine will start the probing cycle with the fast speed, and will back up w
     <li></li>
     <li></li>
     <li></li>
-    <li>Einzelner Flaechenwinkel Y</li><b>not working correctly. got some problems with the angle or maybe x - y 0 positioning. Currently working on a fix</b>
+    <li>Einzelner Flaechenwinkel Y</li>
 </ol>
 
 # Variables created by the Postprozessor
