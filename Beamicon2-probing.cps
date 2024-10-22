@@ -152,7 +152,7 @@ properties = {
       { title: "Yes", id: "1" },
       { title: "No", id: "0" },
     ],
-    value: "1" // 1 - ON 2 - OFF
+    value: "1" // 1 - ON 0 - OFF
   },
   useG0: {
     title: "G0 for probe Travel moves",
@@ -162,7 +162,7 @@ properties = {
       { title: "Yes", id: "1" },
       { title: "No", id: "0" },
     ],
-    value: "1" // 1 - ON 2 - OFF
+    value: "1" // 1 - ON 0 - OFF
   },
   // End of edit
 
@@ -232,6 +232,7 @@ var GV_PROBE_SPEED_SLOW = 102; // Probe Feedrate langsam laut einstellung im PP 
 var GV_PROBE_SLOW_DISTANCE = 103; // Slow Probe Distance einstellung im PP 
 var GV_FEEDRATE = 104; // HSM Works Einfahrvorschub des Probe Werkzeugs
 var GV_Zweiter_Antastvorgang = 105; // Auswahl für zweiter Antastvorgang 1 - JA  // 2 - Nein
+var GV_USEG0 = 106; // Use G0 speed for probe travel moves 1 - JA // 0 - NEIN
 
 
 // normal variables
@@ -242,7 +243,7 @@ var GV_Z = 7;
 var GV_TOOL_DIA = 8;
 var GV_BOTTOM = 9; // The final depth position along the probe axis to touch the part
 var GV_DEPTH = 10; // The unsigned incremental distance from the top of the part along the probe axis where the probe will touch the part.
-var GV_APPROACH1 = 11;
+var GV_APPROACH1 = 11; // Bei Einzelflaechenantastung HSM Works / positiv=Ausgabe -1 / negativ=1
 var GV_APPROACH2 = 12;
 var GV_CLEARANCE = 13; // Abstand 1 HSM Works rÃ¼ckzug vom WerkstÃ¼ck
 var GV_OVERTRAVEL = 14; // Abstand den der Taster Ã¼ber den erwarteten Weg hinausfahren darf laut HSM Works Einstellung
@@ -257,6 +258,7 @@ var GV_TOL_SIZE = 22;  //the tolerance for the size
 var GV_PAR_CIRC_ANG_A = 23; //the angle of the touch point relative to the WCS
 var GV_PAR_CIRC_ANG_B = 24; //the angle of the touch point relative to the WCS
 var GV_PAR_CIRC_ANG_C = 25; //the angle of the touch point relative to the WCS
+
 
 // ################################End of edit#################################################
 
@@ -365,12 +367,12 @@ function onOpen() {
   // ################################EDIT#################################################
 
   // write probing variables
-  writeComment("Probing control variables");
+  writeComment("Probe Variablen aus Postprozessor Einstellung");
   writeBlock(formatSetVar(GV_PROBE_SPEED_FAST, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeFastSpeed["value"])));
   writeBlock(formatSetVar(GV_PROBE_SPEED_SLOW, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeSlowSpeed["value"])));
   writeBlock(formatSetVar(GV_PROBE_SLOW_DISTANCE, xyzFormat.format((unit == MM ? 1 : 1 / 25.4) * properties.probeSlowDistance["value"])));
   writeBlock(formatSetVar(GV_Zweiter_Antastvorgang, getProperty("secondprobe") ));
-  writeBlock(formatSetVar(GV_Zweiter_Antastvorgang, getProperty("useG0") ));
+  writeBlock(formatSetVar(GV_USEG0, getProperty("useG0") ));
 }
 
 
@@ -825,16 +827,19 @@ function onClose() {
 function setMach3Variables(x, y, z, cycleType, probeTypeNum) {
   // these are required by all probe types
   writeComment(cycleType);
+  writeComment("Global Probe Variables");
+  writeBlock(formatSetVar(GV_FEEDRATE, xyzFormat.format(cycle.feedrate)));
   writeBlock(formatSetVar(GV_PROBE_TYPE, toolFormat.format(probeTypeNum)));
   writeBlock(formatSetVar(GV_X, xyzFormat.format(x)));
   writeBlock(formatSetVar(GV_Y, xyzFormat.format(y)));
   writeBlock(formatSetVar(GV_Z, xyzFormat.format(z)));
-  writeBlock(formatSetVar(GV_FEEDRATE, xyzFormat.format(cycle.feedrate)));
+  writeBlock(formatSetVar(GV_BOTTOM, xyzFormat.format(cycle.bottom)));
   writeBlock(formatSetVar(GV_DEPTH, xyzFormat.format(cycle.depth)));
   writeBlock(formatSetVar(GV_CLEARANCE, xyzFormat.format(cycle.probeClearance)));
   writeBlock(formatSetVar(GV_OVERTRAVEL, xyzFormat.format(cycle.probeOvertravel)));
   writeBlock(formatSetVar(GV_RETRACT, xyzFormat.format(cycle.retract)));
-  writeBlock(formatSetVar(GV_BOTTOM, xyzFormat.format(cycle.bottom)));
+  writeComment("Cycle specific Variables");
+
 
   switch (probeTypeNum) {
     case 1:
@@ -940,7 +945,7 @@ function setMach3Variables(x, y, z, cycleType, probeTypeNum) {
       break;
   }
 
-  writeBlock('CALL "hsm_probe_beamicon2_subroutine.txt"');
+  writeBlock('CALL "probe'+probeTypeNum+'.txt"');
 
   // probing may change the motion mode, so it needs to be re-established in the next move
   forceXYZ();
