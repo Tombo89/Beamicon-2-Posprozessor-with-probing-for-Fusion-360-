@@ -66,7 +66,7 @@ G53
 
 (################################################################################################################################################################################)
 
-IF #105=1 | #106=1 THEN (Ist zweites Antasten und G0 fuer positionierung aktiviert?)
+IF #105=1 & #106=1 THEN (Ist zweites Antasten und G0 fuer positionierung aktiviert?)
     G1 F=#100 UNTIL #I9=1 Z=#951-#925
     IF #I9=0 THEN 
         PRINT "probe switch not triggered"
@@ -108,7 +108,7 @@ ENDIF
 
 (################################################################################################################################################################################)
 
-IF #105=1 | #106=0 THEN (Ist zweites Antasten und G0 fuer positionierung aktiviert?)
+IF #105=1 & #106=0 THEN (Ist zweites Antasten und G0 fuer positionierung aktiviert?)
     G1 F=#100 UNTIL #I9=1 Z=#951-#925
     IF #I9=0 THEN 
         PRINT "probe switch not triggered"
