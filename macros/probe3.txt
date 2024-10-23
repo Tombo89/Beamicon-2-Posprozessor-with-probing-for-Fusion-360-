@@ -97,7 +97,7 @@ IF #105=1 & #106=1 THEN (Ist zweites Antasten und G0 fuer positionierung aktivie
     #24=Z (Ermittelte Kante Z-Achse, Tastkugel nicht beruecksichtigt)
     G0 Z=#24+#10  (Taster freifahren)
     #909=#22 (alten Nullpunkt vor G53 reaktivieren)
-    #902=#24(#925 gemessen Werkzeuglänge von 3D Taster)
+    #902=#24(#902 gemessen Werkzeuglänge von 3D Taster)
     IF #939&64 THEN (G43 war aktiv?)
         #902=#902-#925 (Werkzeuglaenge abziehen)
     ENDIF
