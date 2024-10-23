@@ -7,15 +7,16 @@ Thank you for your work, and well documented changes in the code so its easy to 
 
 #100 (Anfahrgeschwindigkeit)
 #102 (Ausfahrgeschwindigkeit für Messung)
-#103 (Slow probe distance)
+#103 (Rueckzug fuer zweiten Antastvorgang mit langsamer Geschwindikeit)
 #104 (HSM Works Einfahrvorschub des Probe Werkzeugs)
-#105 (Second Probe cycle? 1 - ON // 0 - OFF)
+#105 (zweiter Langsamer Antastvorgang mit langsamer Geschwindigkeit? 1 - JA // 0 - NEIN)
+#106 (Beenutze G0 Eilgang für Positionierung? 1 - JA // 0 - NEIN)
 
 #4 (Probe cycle Ã¼bermittelt vom PP)
 #6 (Startpunkt Y)
 #9 (The final depth position along the probe axis to touch the part)  Wenn getestet dann Z Antasthöhe hierüber festlegen, anstatt Z=0-#8
-#10 (Rueckzugshoehe)
-#11 (Z hoehe Antastvorgang)
+#10 (The unsigned incremental distance from the top of the part along the probe axis where the probe will touch the part.)
+#11 (Richtung der Antastung in HSM Works / positiv=-1 / negativ=1)
 #13 (Abstand Probe zu Werkstueck)
 #14 (max. Abstand Taster - Kante)
 #17 (Werkstueckhoehe in Y Richtung)
