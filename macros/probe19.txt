@@ -64,7 +64,7 @@ G21 G40 G90 G94
 
 G1 F=#104 Z=#9 (Z auf Probehoehe aus HSM Works fahren)
 
-IF #105=1 | #106=1 | #11=1 THEN (Ist zweites Antasten und G0 fuer positionierung aktiviert? Antastrichtung Negativ?)
+IF #105=1 & #106=1 & #11=1 THEN (Ist zweites Antasten und G0 fuer positionierung aktiviert? Antastrichtung Negativ?)
    
     G0 X=#5-#19/2 (Fahre zur ersten Kante in X Richtung)
     (Taste mit schneller Geschwindigkeit an bis zum ausloesen, fahre dann zurueck bis der Taster nicht mehr ausloest)
@@ -132,7 +132,7 @@ ENDIF
 
 (################################################################################################################################################################################)
 
-IF #105=1 | #106=1 | #11=-1 THEN (Ist zweites Antasten und G0 fuer positionierung aktiviert? Antastrichtung Positiv?)
+IF #105=1 & #106=1 & #11=-1 THEN (Ist zweites Antasten und G0 fuer positionierung aktiviert? Antastrichtung Positiv?)
    
     G0 X=#5-#19/2 (Fahre zur ersten Kante in X Richtung)
     (Taste mit schneller Geschwindigkeit an bis zum ausloesen, fahre dann zurueck bis der Taster nicht mehr ausloest)
@@ -200,7 +200,7 @@ ENDIF
 
 (################################################################################################################################################################################)
 
-IF #105=1 | #106=1 | #11=1 THEN (Ist zweites Antasten und G0 fuer positionierung Deaktiviert? Antastrichtung Negativ?)
+IF #105=1 & #106=1 & #11=1 THEN (Ist zweites Antasten und G0 fuer positionierung Deaktiviert? Antastrichtung Negativ?)
    
     G1 F=#104 X=#5-#19/2 (Fahre zur ersten Kante in X Richtung)
     (Taste mit schneller Geschwindigkeit an bis zum ausloesen, fahre dann zurueck bis der Taster nicht mehr ausloest)
@@ -268,7 +268,7 @@ ENDIF
 
 (################################################################################################################################################################################)
 
-IF #105=1 | #106=0 | #11=-1 THEN (Ist zweites Antasten und G0 fuer positionierung Deaktiviert? Antastrichtung Positiv?)
+IF #105=1 & #106=0 & #11=-1 THEN (Ist zweites Antasten und G0 fuer positionierung Deaktiviert? Antastrichtung Positiv?)
    
     G1 F=#104 X=#5-#19/2 (Fahre zur ersten Kante in X Richtung)
     (Taste mit schneller Geschwindigkeit an bis zum ausloesen, fahre dann zurueck bis der Taster nicht mehr ausloest)
