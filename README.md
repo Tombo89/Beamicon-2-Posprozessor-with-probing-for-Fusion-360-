@@ -42,8 +42,6 @@ The Machine will start the probing cycle with the fast speed, and will back up w
 
 # Currently implemented probing cycles that seem to work fine / variable #4
 <ol>
-    <li>Einzelfläche X</li>
-    <li>Einzelfläche Y</li>
     <li>Einzelfläche Z</li>
     <li>X Steg</li>
     <li>Y Steg</li>
