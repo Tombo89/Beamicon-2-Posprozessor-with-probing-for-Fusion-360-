@@ -1,0 +1,127 @@
+#NAME probe1.txt #LABEL "X Flaeche Subroutine to support Probing in HSM Works / Fusin 360"
+
+
+Unterprogramm fuer die Antastfunktion aus HSM Works / Fusion 360 in Verbindung mit dem Probing PP
+
+Most of the code is based on the Fusion 360 Postprozessor for Mach3 mith probing functionality by mlm solutions. http://www.mlmsolutions.biz/fusion_post_mach3_probing.php
+Thank you for your work, and well documented changes in the code so its easy to adopt.
+
+
+Probe Variablen aus Postprozessor Einstellung
+
+#100 (Anfahrgeschwindigkeit)
+#102 (Ausfahrgeschwindigkeit für Messung)
+#103 (Rueckzug fuer zweiten Antastvorgang mit langsamer Geschwindikeit)
+#105 (zweiter Langsamer Antastvorgang mit langsamer Geschwindigkeit? 1 - JA // 0 - NEIN)
+#106 (Beenutze G0 Eilgang für Positionierung? 1 - JA // 0 - NEIN)
+
+Globale Antast Variablen
+
+#104 (HSM Works Einfahrvorschub des Probe Werkzeugs)
+#4 (Probe cycle Uebermittelt vom PP)
+#5 (Startpunkt X)
+#6 (Startpunkt Y)
+#7 (Startpunkt Z)
+#9 (The final depth position along the probe axis to touch the part) 
+#10 (The unsigned incremental distance from the top of the part along the probe axis where the probe will touch the part.)
+#13 (Abstand Probe zu Werkstueck)
+#14 (max. Abstand Taster - Kante)
+#15 (Rueckzugshoehe HSM Works)
+
+Antast Modus spezifische Variablen
+
+#8 (Antastspitzendurchmesser)
+#16 (WCS)
+#20 (the tolerance for the position)
+#26 (Toleranze for the size)
+#17 (Breite des Anzutastenden Teils Laut HSM Works Modell)
+
+Beamicon2 Variablen
+
+#909 (letzter Nullpunkt)
+
+Beamicon2 Eingaenge
+
+#I9 (Eingang fuer Kantentaster)
+
+Unterprogramm interne Variablen
+
+#22 (verwendeter Nullpunkt G54..G59)
+
+
+
+%
+
+IF #954=0 | #955=0 | #957=0 | #958=0 THEN (Parameter nicht gesetzt)
+    PRINT "undefined macro parameters, please check variables #951 and up"
+    M2
+ENDIF
+#22=#909 (verwendeter Nullpunkt G54..G59)
+IF #22=0 THEN
+    PRINT "no offset G54..G59 selected"
+    M2
+ENDIF
+
+G21 G40 G90 G94
+
+G1 F=#104 Z=0-#8 (Z auf Probehoehe aus HSM Works fahren)
+
+IF #105=1 THEN (If second probe cycle is enabled)
+
+    G1 F=#100 UNTIL #I9=1 X=X+#13+#14
+    IF #I9=0 THEN 
+        PRINT "left edge not found"
+        M2 
+    ENDIF
+    G1 F=#102 UNTIL #I9=0 X=#27
+    IF #I9=1 THEN 
+        PRINT "probe switch not released"
+        M2 
+    ENDIF
+
+    G1 F=#100 X=X-#103
+
+    G1 F=#102 UNTIL #I9=1 X=X+#103+#14
+    IF #I9=0 THEN 
+        PRINT "left edge not found"
+        M2 
+    ENDIF
+    G1 F=#102 UNTIL #I9=0 X=#27
+    IF #I9=1 THEN 
+        PRINT "probe switch not released"
+        M2 
+    ENDIF
+    #23=X (Ermittelte Kante X-Achse, Tastkugel nicht beruecksichtigt)
+    #900=#900+#23+#955/2
+    L53 (Nullpunkt speichern)
+    RETURN 
+
+    ELSE
+        G1 F=#100 UNTIL #I9=1 X=X+#13+#14
+    IF #I9=0 THEN 
+        PRINT "left edge not found"
+        M2 
+    ENDIF
+    G1 F=#102 UNTIL #I9=0 X=#27
+    IF #I9=1 THEN 
+        PRINT "probe switch not released"
+        M2 
+    ENDIF
+    #23=X (Ermittelte Kante X-Achse, Tastkugel nicht beruecksichtigt)
+    G0 X=#27
+    #900=#900+#23+#955/2
+    L53 (Nullpunkt speichern)
+    RETURN 
+ENDIF
+
+
+(################################################################################################################################################################################)
+
+ELSE (ohne zweiten Antastvorgang nich unterstuezt)
+    PRINT "only one probing cycle at fast speed is currently not supported. Select second Probe cycle"
+    M2
+ENDIF
+
+Simulation: 
+PRINT "Edge-finder with 3D-probe (simulation)"
+RETURN
